@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express');
 const path = require('path');
 const favicon = require('serve-favicon');
@@ -7,8 +8,7 @@ const bodyParser = require('body-parser');
 
 require('./config/db.config');
 
-const index = require('./routes/index');
-const users = require('./routes/users');
+const post = require('./app/post/post.routes');
 
 const app = express();
 
@@ -21,8 +21,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
-app.use('/users', users);
+app.use('/', post);
 
 app.use((req, res, next) => {
   const err = new Error('Not Found');
